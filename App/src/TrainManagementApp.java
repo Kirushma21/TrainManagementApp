@@ -1,48 +1,39 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
-// Bogie class (same model as UC7–UC9)
-class Bogie {
-    String name;
-    int capacity;
-
-    public Bogie(String name, int capacity) {
-        this.name = name;
-        this.capacity = capacity;
-    }
-
-    @Override
-    public String toString() {
-        return name + " → " + capacity;
-    }
-}
-
-public class TrainManagementApp {
+public class TrainApp {
 
     public static void main(String[] args) {
 
         // Welcome message
         System.out.println("=== Train Consist Management App ===");
 
-        // Create bogie list
-        List<Bogie> bogies = new ArrayList<>();
+        // Sample inputs (you can change or take Scanner input if needed)
+        String trainId = "TRN-1234";
+        String cargoCode = "PET-AB";
 
-        bogies.add(new Bogie("Sleeper", 72));
-        bogies.add(new Bogie("AC Chair", 48));
-        bogies.add(new Bogie("First Class", 24));
-        bogies.add(new Bogie("Executive", 90));
+        // 🔹 Regex patterns
+        Pattern trainPattern = Pattern.compile("TRN-\\d{4}");
+        Pattern cargoPattern = Pattern.compile("PET-[A-Z]{2}");
 
-        // 🔹 Extract capacity and reduce (sum)
-        int totalSeats = bogies.stream()
-                .map(b -> b.capacity)
-                .reduce(0, Integer::sum);
+        // 🔹 Matcher objects
+        Matcher trainMatcher = trainPattern.matcher(trainId);
+        Matcher cargoMatcher = cargoPattern.matcher(cargoCode);
 
-        // 🔹 Display bogies
-        System.out.println("\nBogie List:");
-        bogies.forEach(System.out::println);
+        // 🔹 Validate Train ID
+        System.out.println("\nTrain ID Validation:");
+        if (trainMatcher.matches()) {
+            System.out.println(trainId + " is VALID");
+        } else {
+            System.out.println(trainId + " is INVALID");
+        }
 
-        // 🔹 Display total capacity
-        System.out.println("\nTotal Seating Capacity of Train:");
-        System.out.println(totalSeats);
+        // 🔹 Validate Cargo Code
+        System.out.println("\nCargo Code Validation:");
+        if (cargoMatcher.matches()) {
+            System.out.println(cargoCode + " is VALID");
+        } else {
+            System.out.println(cargoCode + " is INVALID");
+        }
     }
 }
