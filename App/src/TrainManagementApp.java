@@ -1,5 +1,22 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+// Bogie class with properties
+class Bogie {
+    String name;
+    int capacity;
+
+    public Bogie(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
+    }
+
+    @Override
+    public String toString() {
+        return name + " → " + capacity;
+    }
+}
 
 public class TrainManagementApp {
 
@@ -8,21 +25,27 @@ public class TrainManagementApp {
         // Welcome message
         System.out.println("=== Train Consist Management App ===");
 
-        // Create HashMap for bogie-capacity mapping
-        Map<String, Integer> bogieCapacityMap = new HashMap<>();
+        // Create list of passenger bogies
+        List<Bogie> bogies = new ArrayList<>();
 
-        // 🔹 Insert bogie capacities
-        bogieCapacityMap.put("Sleeper", 72);
-        bogieCapacityMap.put("AC Chair", 48);
-        bogieCapacityMap.put("First Class", 24);
-        bogieCapacityMap.put("Cargo", 1000);
-        bogieCapacityMap.put("Guard", 10);
+        // 🔹 Add bogies with capacity
+        bogies.add(new Bogie("Sleeper", 72));
+        bogies.add(new Bogie("AC Chair", 48));
+        bogies.add(new Bogie("First Class", 24));
 
-        // 🔹 Display bogie capacities
-        System.out.println("\nBogie Capacity Details:");
+        // 🔹 Display original order
+        System.out.println("\nOriginal Order:");
+        for (Bogie b : bogies) {
+            System.out.println(b);
+        }
 
-        for (Map.Entry<String, Integer> entry : bogieCapacityMap.entrySet()) {
-            System.out.println(entry.getKey() + " → " + entry.getValue());
+        // 🔹 Sort using Comparator (by capacity)
+        bogies.sort(Comparator.comparingInt(b -> b.capacity));
+
+        // 🔹 Display sorted order
+        System.out.println("\nSorted by Capacity (Ascending):");
+        for (Bogie b : bogies) {
+            System.out.println(b);
         }
     }
 }
