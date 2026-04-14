@@ -1,7 +1,7 @@
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
-// Bogie class (same as UC7/UC8)
+// Bogie class (same model as UC7–UC9)
 class Bogie {
     String name;
     int capacity;
@@ -17,12 +17,7 @@ class Bogie {
     }
 }
 
-public class TrainManagementgit checkout -b feature/uc9-group-bogies
-
-        git add .
-        git commit -m "UC9: Group bogies by type using Collectors.groupingBy"
-
-        git push origin feature/uc9-group-bogiesApp {
+public class TrainManagementApp {
 
     public static void main(String[] args) {
 
@@ -35,26 +30,19 @@ public class TrainManagementgit checkout -b feature/uc9-group-bogies
         bogies.add(new Bogie("Sleeper", 72));
         bogies.add(new Bogie("AC Chair", 48));
         bogies.add(new Bogie("First Class", 24));
-        bogies.add(new Bogie("Sleeper", 72));
-        bogies.add(new Bogie("AC Chair", 48));
+        bogies.add(new Bogie("Executive", 90));
 
-        // 🔹 Grouping bogies by name (type)
-        Map<String, List<Bogie>> groupedBogies =
-                bogies.stream()
-                        .collect(Collectors.groupingBy(b -> b.name));
+        // 🔹 Extract capacity and reduce (sum)
+        int totalSeats = bogies.stream()
+                .map(b -> b.capacity)
+                .reduce(0, Integer::sum);
 
-        // 🔹 Display original list
-        System.out.println("\nOriginal Bogies:");
+        // 🔹 Display bogies
+        System.out.println("\nBogie List:");
         bogies.forEach(System.out::println);
 
-        // 🔹 Display grouped result
-        System.out.println("\nGrouped Bogies by Type:");
-
-        for (Map.Entry<String, List<Bogie>> entry : groupedBogies.entrySet()) {
-            System.out.println("\n" + entry.getKey() + ":");
-            for (Bogie b : entry.getValue()) {
-                System.out.println("  " + b);
-            }
-        }
+        // 🔹 Display total capacity
+        System.out.println("\nTotal Seating Capacity of Train:");
+        System.out.println(totalSeats);
     }
 }
