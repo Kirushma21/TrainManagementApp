@@ -1,32 +1,52 @@
 // TrainManagementApp.java
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class TrainManagementApp {
+
+    // 🔹 Linear Search Method
+    public static boolean linearSearch(String[] arr, String key) {
+
+        for (int i = 0; i < arr.length; i++) {
+
+            // Compare using equals()
+            if (arr[i].equals(key)) {
+                return true; // Found
+            }
+        }
+
+        return false; // Not found
+    }
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter number of bogie types: ");
+        System.out.print("Enter number of bogies: ");
         int n = sc.nextInt();
         sc.nextLine(); // consume newline
 
-        String[] bogies = new String[n];
+        String[] bogieIds = new String[n];
 
-        // Input bogie names
-        System.out.println("Enter bogie names:");
+        // Input IDs
+        System.out.println("Enter bogie IDs:");
         for (int i = 0; i < n; i++) {
-            bogies[i] = sc.nextLine();
+            bogieIds[i] = sc.nextLine();
         }
 
-        // 🔹 Built-in sorting
-        Arrays.sort(bogies);
+        // Search key
+        System.out.print("Enter bogie ID to search: ");
+        String key = sc.nextLine();
+
+        // Call search
+        boolean found = linearSearch(bogieIds, key);
 
         // Output
-        System.out.println("Sorted bogie names:");
-        System.out.println(Arrays.toString(bogies));
+        if (found) {
+            System.out.println("Bogie ID " + key + " FOUND");
+        } else {
+            System.out.println("Bogie ID " + key + " NOT FOUND");
+        }
 
         sc.close();
     }
