@@ -18,15 +18,15 @@ public class TrainManagementApp {
             int result = key.compareTo(arr[mid]);
 
             if (result == 0) {
-                return true; // Found
+                return true;
             } else if (result > 0) {
-                low = mid + 1; // Search right
+                low = mid + 1;
             } else {
-                high = mid - 1; // Search left
+                high = mid - 1;
             }
         }
 
-        return false; // Not found
+        return false;
     }
 
     public static void main(String[] args) {
@@ -39,13 +39,18 @@ public class TrainManagementApp {
 
         String[] bogieIds = new String[n];
 
-        // Input IDs
+        // 🔹 FAIL-FAST VALIDATION
+        if (bogieIds.length == 0) {
+            throw new IllegalStateException("No bogies available for search");
+        }
+
+        // Input
         System.out.println("Enter bogie IDs:");
         for (int i = 0; i < n; i++) {
             bogieIds[i] = sc.nextLine();
         }
 
-        // 🔹 Sort before binary search (IMPORTANT)
+        // Sort before search
         Arrays.sort(bogieIds);
 
         System.out.println("Sorted Bogie IDs: " + Arrays.toString(bogieIds));
@@ -54,7 +59,7 @@ public class TrainManagementApp {
         System.out.print("Enter bogie ID to search: ");
         String key = sc.nextLine();
 
-        // Call binary search
+        // Search
         boolean found = binarySearch(bogieIds, key);
 
         // Output
