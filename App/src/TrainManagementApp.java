@@ -1,61 +1,33 @@
-// TrainConsistApp.java
+// TrainManagementApp.java
 
-import java.util.*;
-import java.util.stream.Collectors;
-
-class Bogie {
-    String type;
-    int capacity;
-
-    Bogie(String type, int capacity) {
-        this.type = type;
-        this.capacity = capacity;
-    }
-
-    @Override
-    public String toString() {
-        return type + " (" + capacity + ")";
-    }
-}
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class TrainManagementApp {
 
     public static void main(String[] args) {
 
-        // Sample data
-        List<Bogie> bogies = new ArrayList<>();
-        bogies.add(new Bogie("Sleeper", 72));
-        bogies.add(new Bogie("AC Chair", 50));
-        bogies.add(new Bogie("First Class", 30));
-        bogies.add(new Bogie("Sleeper", 80));
-        bogies.add(new Bogie("AC Chair", 65));
+        Scanner sc = new Scanner(System.in);
 
-        // 🔹 Loop-based filtering
-        long startLoop = System.nanoTime();
+        System.out.print("Enter number of bogie types: ");
+        int n = sc.nextInt();
+        sc.nextLine(); // consume newline
 
-        List<Bogie> loopResult = new ArrayList<>();
-        for (Bogie b : bogies) {
-            if (b.capacity > 60) {
-                loopResult.add(b);
-            }
+        String[] bogies = new String[n];
+
+        // Input bogie names
+        System.out.println("Enter bogie names:");
+        for (int i = 0; i < n; i++) {
+            bogies[i] = sc.nextLine();
         }
 
-        long endLoop = System.nanoTime();
+        // 🔹 Built-in sorting
+        Arrays.sort(bogies);
 
-        // 🔹 Stream-based filtering
-        long startStream = System.nanoTime();
+        // Output
+        System.out.println("Sorted bogie names:");
+        System.out.println(Arrays.toString(bogies));
 
-        List<Bogie> streamResult = bogies.stream()
-                .filter(b -> b.capacity > 60)
-                .collect(Collectors.toList());
-
-        long endStream = System.nanoTime();
-
-        // Results
-        System.out.println("Loop Result: " + loopResult);
-        System.out.println("Stream Result: " + streamResult);
-
-        System.out.println("Loop Time: " + (endLoop - startLoop) + " ns");
-        System.out.println("Stream Time: " + (endStream - startStream) + " ns");
+        sc.close();
     }
 }
