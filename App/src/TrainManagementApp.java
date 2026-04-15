@@ -1,17 +1,28 @@
 // TrainManagementApp.java
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class TrainManagementApp {
 
-    // 🔹 Linear Search Method
-    public static boolean linearSearch(String[] arr, String key) {
+    // 🔹 Binary Search Method
+    public static boolean binarySearch(String[] arr, String key) {
 
-        for (int i = 0; i < arr.length; i++) {
+        int low = 0;
+        int high = arr.length - 1;
 
-            // Compare using equals()
-            if (arr[i].equals(key)) {
+        while (low <= high) {
+
+            int mid = (low + high) / 2;
+
+            int result = key.compareTo(arr[mid]);
+
+            if (result == 0) {
                 return true; // Found
+            } else if (result > 0) {
+                low = mid + 1; // Search right
+            } else {
+                high = mid - 1; // Search left
             }
         }
 
@@ -34,12 +45,17 @@ public class TrainManagementApp {
             bogieIds[i] = sc.nextLine();
         }
 
+        // 🔹 Sort before binary search (IMPORTANT)
+        Arrays.sort(bogieIds);
+
+        System.out.println("Sorted Bogie IDs: " + Arrays.toString(bogieIds));
+
         // Search key
         System.out.print("Enter bogie ID to search: ");
         String key = sc.nextLine();
 
-        // Call search
-        boolean found = linearSearch(bogieIds, key);
+        // Call binary search
+        boolean found = binarySearch(bogieIds, key);
 
         // Output
         if (found) {
